@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figuras Literarias - MDD</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 20px; }
+    .section { display: none; padding: 20px; margin: auto; max-width: 600px; background: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .section.active { display: block; }
+    h2 { color: #333; }
+    .btn { margin-top: 10px; padding: 10px 20px; background: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .btn:hover { background: #0056b3; }
+    .option { margin: 8px 0; }
+    .result { margin-top: 10px; font-weight: bold; }
+    textarea { width: 100%; height: 100px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+  </style>
+</head>
+<body>
+
+<div class="section active" id="activity1">
+  <h2>Actividad 1: Selecciona la figura literaria correcta</h2>
+  <p>“El mar rugía con fuerza durante la tormenta.”</p>
+  <div class="option"><input type="radio" name="q1" value="Metáfora"> Metáfora</div>
+  <div class="option"><input type="radio" name="q1" value="Símil"> Símil</div>
+  <div class="option"><input type="radio" name="q1" value="Personificación"> Personificación</div>
+  <div class="option"><input type="radio" name="q1" value="Hipérbole"> Hipérbole</div>
+  <button class="btn" onclick="checkAnswer1()">Verificar</button>
+  <div id="result1" class="result"></div>
+</div>
+
+<div class="section" id="activity2">
+  <h2>Actividad 2: Completa la oración</h2>
+  <p>“Tus palabras son ______ que acarician el alma.”</p>
+  <div class="option"><input type="radio" name="q2" value="cuchillos filosos"> cuchillos filosos</div>
+  <div class="option"><input type="radio" name="q2" value="lluvia constante"> lluvia constante</div>
+  <div class="option"><input type="radio" name="q2" value="melodías suaves"> melodías suaves</div>
+  <div class="option"><input type="radio" name="q2" value="pasos silenciosos"> pasos silenciosos</div>
+  <button class="btn" onclick="checkAnswer2()">Verificar</button>
+  <div id="result2" class="result"></div>
+</div>
+
+<div class="section" id="activity3">
+  <h2>Actividad 3: Verdadero o falso</h2>
+  <ul>
+    <li>Una metáfora siempre utiliza la palabra “como”. <strong>Falso</strong></li>
+    <li>La personificación atribuye cualidades humanas a objetos. <strong>Verdadero</strong></li>
+    <li>“Lloró un río de lágrimas” es hipérbole. <strong>Verdadero</strong></li>
+    <li>En un símil no se compara, solo se describe. <strong>Falso</strong></li>
+  </ul>
+  <button class="btn" onclick="nextSection('evalFormativa')">Siguiente</button>
+</div>
+
+<div class="section" id="evalFormativa">
+  <h2>Evaluación Formativa</h2>
+  <p>Selecciona la figura literaria adecuada:</p>
+  <p>“El reloj caminaba despacio.”</p>
+  <div class="option"><input type="radio" name="q3" value="Metáfora"> Metáfora</div>
+  <div class="option"><input type="radio" name="q3" value="Personificación"> Personificación</div>
+  <div class="option"><input type="radio" name="q3" value="Hipérbole"> Hipérbole</div>
+  <button class="btn" onclick="checkAnswer3()">Verificar</button>
+  <div id="result3" class="result"></div>
+</div>
+
+<div class="section" id="evalFinal">
+  <h2>Evaluación Final (Sumativa)</h2>
+  <p>Escribe un texto creativo que contenga al menos 3 figuras literarias diferentes.</p>
+  <textarea placeholder="Escribe aquí tu cuento o poema..."></textarea>
+  <h3>Rúbrica:</h3>
+  <table>
+    <tr><th>Criterio</th><th>Excelente</th><th>Bueno</th><th>Mejorar</th></tr>
+    <tr><td>Uso de figuras</td><td>3 o más correctas</td><td>2 correctas</td><td>1 o errores</td></tr>
+    <tr><td>Creatividad</td><td>Muy original</td><td>Interesante</td><td>Poco creativo</td></tr>
+    <tr><td>Claridad</td><td>Muy claro</td><td>Aceptable</td><td>Confuso</td></tr>
+    <tr><td>Presentación</td><td>Excelente</td><td>Buena</td><td>Con errores</td></tr>
+  </table>
+</div>
+
+<script>
+function checkAnswer1() {
+  const answer = document.querySelector('input[name="q1"]:checked');
+  const result = document.getElementById('result1');
+  if (!answer) return result.textContent = 'Selecciona una opción.';
+  result.textContent = (answer.value === 'Personificación') ? '¡Correcto!' : 'Incorrecto. Era una personificación.';
+  nextSection('activity2');
+}
+
+function checkAnswer2() {
+  const answer = document.querySelector('input[name="q2"]:checked');
+  const result = document.getElementById('result2');
+  if (!answer) return result.textContent = 'Selecciona una opción.';
+  result.textContent = (answer.value === 'melodías suaves') ? '¡Correcto!' : 'Incorrecto. Era una metáfora.';
+  nextSection('activity3');
+}
+
+function checkAnswer3() {
+  const answer = document.querySelector('input[name="q3"]:checked');
+  const result = document.getElementById('result3');
+  if (!answer) return result.textContent = 'Selecciona una opción.';
+  result.textContent = (answer.value === 'Personificación') ? '¡Correcto!' : 'Incorrecto. Era una personificación.';
+  nextSection('evalFinal');
+}
+
+function nextSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
+
+</body>
+</html>
